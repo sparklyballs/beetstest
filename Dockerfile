@@ -208,7 +208,7 @@ RUN \
 	set -ex \
 	&& apk add --no-cache \
 		curl \
-		ffmpeg-libs \
+		ffmpeg \
 		fftw \
 		mpg123 \
 		nano \
