@@ -10,9 +10,13 @@ ARG MP3GAIN_VER="1.6.2"
 RUN \
 	set -ex \
 	&& apk add --no-cache \
+		bash \
 		curl \
 		git \
 		unzip
+
+# set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # fetch version file
 RUN \
