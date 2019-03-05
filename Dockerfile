@@ -214,6 +214,7 @@ RUN \
 		nano \
 		jq \
 		lame \
+		nano \
 		py2-beautifulsoup4 \
 		py2-flask \
 		py2-jellyfish \
