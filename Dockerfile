@@ -144,13 +144,9 @@ RUN \
 	set -ex \
 	&& apk add --no-cache \
 		g++ \
-		jpeg-dev \
-		libpng-dev \
 		make \
-		openjpeg-dev \
 		py3-pip \
-		python3-dev \
-		zlib-dev
+		python3-dev
 
 # install pip packages
 RUN \
@@ -158,7 +154,6 @@ RUN \
 	&& pip3 install --no-cache-dir -U \
 		discogs-client \
 		mutagen \
-		pillow==5.3.0 \
 		pyacoustid \
 		pyyaml \
 		unidecode
@@ -217,16 +212,15 @@ RUN \
 		fftw \
 		mpg123 \
 		nano \
-		jpeg \
 		jq \
 		lame \
 		nano \
-		openjpeg \
 		py3-beautifulsoup4 \
 		py3-flask \
 		py3-jellyfish \
 		py3-munkres \
 		py3-musicbrainzngs \
+		py3-pillow \
 		py3-pip \
 		py3-pylast \
 		py3-requests \
