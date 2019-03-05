@@ -61,14 +61,14 @@ WORKDIR /tmp/beets-src
 RUN \
 	set -ex \
 	&& apk add --no-cache \
-		py2-setuptools \
-		python2-dev
+		py3-setuptools \
+		python3-dev
 
 # build beets package
 RUN \
 	set -ex \
-	&& python setup.py build \
-	&& python setup.py install --prefix=/usr --root=/build/beets
+	&& python3 setup.py build \
+	&& python3 setup.py install --prefix=/usr --root=/build/beets
 
 # set workdir for copyartifacts install
 WORKDIR /tmp/copyartifacts-src
@@ -76,7 +76,7 @@ WORKDIR /tmp/copyartifacts-src
 # build copyartifacts package
 RUN \
 	set -ex \
-	&& python setup.py install --prefix=/usr --root=/build/beets
+	&& python3 setup.py install --prefix=/usr --root=/build/beets
 
 FROM alpine:${ALPINE_VER} as mp3gain_build-stage
 
@@ -144,16 +144,21 @@ RUN \
 	set -ex \
 	&& apk add --no-cache \
 		g++ \
+		jpeg-dev \
+		libpng-dev \
 		make \
-		py2-pip \
-		python2-dev
+		openjpeg-dev \
+		py3-pip \
+		python3-dev \
+		zlib-dev
 
 # install pip packages
 RUN \
 	set -ex \
-	&& pip install --no-cache-dir -U \
+	&& pip3 install --no-cache-dir -U \
 		discogs-client \
 		mutagen \
+		pillow==5.3.0 \
 		pyacoustid \
 		pyyaml \
 		unidecode
@@ -166,7 +171,7 @@ FROM alpine:${ALPINE_VER} as strip-stage
 COPY --from=beets_build-stage /build/beets/usr/ /build/all//usr/
 COPY --from=chromaprint_build-stage /build/chromaprint/usr/ /build/all//usr/
 COPY --from=mp3gain_build-stage /build/mp3gain/usr/ /build/all//usr/
-COPY --from=pip-stage /usr/lib/python2.7/site-packages /build/all/usr/lib/python2.7/site-packages
+COPY --from=pip-stage /usr/lib/python3.6/site-packages /build/all/usr/lib/python3.6/site-packages
 
 # install strip packages
 RUN \
@@ -181,7 +186,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # strip packages
 RUN \
 	set -ex \
-	&& for dirs in usr/bin usr/lib usr/lib/python2.7/site-packages; \
+	&& for dirs in usr/bin usr/lib usr/lib/python3.6/site-packages; \
 	do \
 		find /build/all/"${dirs}" -type f | \
 		while read -r files ; do strip "${files}" || true \
@@ -212,21 +217,23 @@ RUN \
 		fftw \
 		mpg123 \
 		nano \
+		jpeg \
 		jq \
 		lame \
-		py2-beautifulsoup4 \
-		py2-flask \
-		py2-jellyfish \
-		py2-munkres \
-		py2-musicbrainzngs \
-		py2-pillow \
-		py2-pip \
-		py2-pylast \
-		py2-requests \
-		py2-setuptools \
-		py2-six \
+		nano \
+		openjpeg \
+		py3-beautifulsoup4 \
+		py3-flask \
+		py3-jellyfish \
+		py3-munkres \
+		py3-musicbrainzngs \
+		py3-pip \
+		py3-pylast \
+		py3-requests \
+		py3-setuptools \
+		py3-six \
 		py-enum34 \
-		python2 \
+		python3 \
 		sqlite-libs \
 		tar \
 		wget
