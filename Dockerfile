@@ -35,7 +35,7 @@ RUN \
 		/tmp/mp3gain-src \
 	&& curl -o \
 	/tmp/beets.tar.gz -L \
-	"https://github.com/sampsyo/beets/releases/download/v${BEETS_RELEASE}/beets-${BEETS_RELEASE}.tar.gz" \
+	"https://github.com/sampsyo/beets/archive/${BEETS_COMMIT}.tar.gz" \
 	&& curl -o \
 	/tmp/mp3gain.zip -L \
 	"https://sourceforge.net/projects/mp3gain/files/mp3gain/${MP3GAIN_VER}/mp3gain-${MP3GAIN_VER//./_}-src.zip" \
