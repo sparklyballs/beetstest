@@ -1,5 +1,5 @@
-ARG ALPINE_VER="3.9"
-FROM alpine:3.9 as fetch-stage
+ARG ALPINE_VER="3.10"
+FROM alpine:${ALPINE_VER} as fetch-stage
 
 ############## fetch stage ##############
 
@@ -166,7 +166,7 @@ FROM alpine:${ALPINE_VER} as strip-stage
 COPY --from=beets_build-stage /build/beets/usr/ /build/all//usr/
 COPY --from=chromaprint_build-stage /build/chromaprint/usr/ /build/all//usr/
 COPY --from=mp3gain_build-stage /build/mp3gain/usr/ /build/all//usr/
-COPY --from=pip-stage /usr/lib/python3.6/site-packages /build/all/usr/lib/python3.6/site-packages
+COPY --from=pip-stage /usr/lib/python3.7/site-packages /build/all/usr/lib/python3.7/site-packages
 
 # install strip packages
 RUN \
@@ -181,7 +181,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # strip packages
 RUN \
 	set -ex \
-	&& for dirs in usr/bin usr/lib usr/lib/python3.6/site-packages; \
+	&& for dirs in usr/bin usr/lib usr/lib/python3.7/site-packages; \
 	do \
 		find /build/all/"${dirs}" -type f | \
 		while read -r files ; do strip "${files}" || true \
